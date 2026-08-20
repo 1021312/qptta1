@@ -1,0 +1,28 @@
+name: AI strategy validation
+
+on:
+  push:
+    paths:
+      - "ai_evolution/candidates/**"
+      - "ai_evolution/validate_strategy.py"
+  pull_request:
+    paths:
+      - "ai_evolution/candidates/**"
+      - "ai_evolution/validate_strategy.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate AI strategy candidates
+        run: python ai_evolution/validate_strategy.py
